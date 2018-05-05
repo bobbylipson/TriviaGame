@@ -1,51 +1,79 @@
 body {
-    background: url('../images/background.jpeg');
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: 25px;
+    background: url("../images/background.jpg");
+    background-size: cover;
+    font-size: 14px;
+    line-height: 34px;
 }
 
-header {
-    margin-bottom: 20px;
+* {
+    box-sizing: border-box;
 }
 
-.btn-primary, .reset {
-    background-color: dodgerblue;
-    color: whitesmoke;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: 30px;
-    padding: 20px;
-    margin-top: 100px;
-}
-
-.btn-primary:hover, .reset:hover {
-    background-color: violet;
-}
-
-.container {
-    margin-top: 50px;
+header, footer, section {
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
     text-align: center;
-    height: 100%;
-    width: 700px;
 }
 
-h2, #message, #finalMessage {
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+header, footer {
+    background-color: gray;
+    height: 100px;
 }
 
-.thisChoice:hover {
-    background-color: slategrey;
-    color: whitesmoke;
-    padding: 10px;
+header h1 {
+    padding: 30px;
+    font-size: 40px;
+    font-style: bold;
+    font-weight: bold;
 }
 
-#image {
-    margin: 30px;
+h2 {
+    font-size: 30px;
 }
 
-@media screen and (max-width:640px) {
-    .container {
-        width: 500px;
-        margin-top: 200px;
-        size: 200%;
-    }
+ul {
+    text-align: auto;
 }
+
+.main-section {
+    background-color: 0c4f23;
+    color: #fff;
+    opacity: 1.5;
+}
+
+button {
+    background-color: orange;
+    width: 20%;
+    height: 20px;
+    opacity: 1 !important;
+    margin-top: 30px;
+}
+
+.question, .answers {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    color: black;
+    font-weight: bolder;
+    font-size: 125%;
+    
+}
+
+#submit, #results, #restart, .question, .answers {
+    display: none;
+}
+
+.rules {
+    font-size: 20px;
+    font-style: bold;
+    font-weight: bold;
+}
+
+footer {
+    clear: both;
+    padding: 20px;
+    font-style: bold;
+}
+

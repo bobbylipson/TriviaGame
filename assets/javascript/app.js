@@ -1,170 +1,107 @@
-var triviaQuestions = [{
-    question: "Which is the only NFL team to go a whole season undefeated, including the Super Bowl?",
-    answerList: ["New England Patriots", "Green Bay Packers", "Miami Dolphins", "Oakland Raiders"],
-    answer: 2
-},{
-    question: "Which is the only country to have played in each and every World Cup?",
-    answerList: ["Englad", "USA", "Germany", "Brazil"],
-    answer: 3
-},{
-    question: "Who was the first US president to throw out the ceremonial first pitch at an MLB game?",
-    answerList: ["William Taft", "Richard Nixon", "George W. Bush", "Dwight D. Eisenhower"],
-    answer: 0
-},{
-    question: "What golfer led the PGA Tour in driving distance for eight years during the 90's?",
-    answerList: ["Phil Mickelson", "Tiger Woods", "John Daly", "Payne Stewart"],
-    answer: 2
-},{
-    question: "Who holds the career record for most runs scored in MLB history?",
-    answerList: ["Barry Bonds", "Rickey Henderson", "Babe Ruth", "Ty Cobb"],
-    answer: 1
-},{
-    question: "Which boxer was a 42-1 underdog when he KO'd Mike Tyson in 1990?",
-    answerList: ["Evander Holyfield", "Buster Douglas", "Rocky Balboa", "George Foreman"],
-    answer: 2
-},{
-    question: "Who is the only athlete to play in The World Series and The Super Bowl?",
-    answerList: ["Tim Tebow", "Bo Jackson", "Deion Sanders", "Michael Jordan"],
-    answer: 2
-},{
-    question: "Which NFL team appeared in 4 consecutive Super Bowls and lost them all?",
-    answerList: ["Buffalo Bills", "Detroit Lions", "Cleveland Browns", "Dallas Cowboys"],
-    answer: 0
-},{
-    question: "Which golfer has a nickname of the Golden Bear?",
-    answerList: ["Arnold Palmer", "Jack Nicklaus", "Tiger Woods", "Fred Couples"],
-    answer: 1
-},{
-    question: "Who was the first MLB players to throw over 100 mph?",
-    answerList: ["Randy Johnson", "Rodger Clemons", "Nolan Ryan", "Justin Verlander"],
-    answer: 2
-}];
+$(document).ready(function(){
+    $("#start-button").click(function(){
+        var number = 60;
+        alert("Play Ball!");
+      $("#start-button").on("click", start);
+      $("#submit").on("click", finish);
+      $("#restart").on("click", restart);
 
-var gifArray = ['question1', 'question2', 'question3', 'question4', 'question5', 'question6', 'question7', 'question8', 'question9', 'question10'];
-var currentQuestion; 
-var correctAnswer; 
-var incorrectAnswer;
-var unanswered; 
-var seconds;
-var time;
-var answered;
-var userSelect; 
-var messages = {
-    correct: "Got it!",
-    incorrect: "WRONG!",
-    endTime: "Couldn't beat the clock!",
-    finished: "Game over! Let's see how we did",
-}
+      function start(){
+          counter = setInterval(timer, 1000);
+          showMe(".question");
+          showMe(".answers");
+          showMe("#submit");
+            hideMe("#start-button");
+            hideMe(".rules");
+            hideMe("#restart");
+            hideMe("#results");
+      }
 
-$('#startBtn').on('click', function(){
-    $(this).hide();
-    newGame();
-});
+      function timer(){
+          number--
+          $("#show-number").html("<h2>" + number + "</h2>");
+          if (number === 0){
+              alert("Shot Clock Violation")
+              stop();
+          }
+      }
+      function stop(){
+          clearInterval(counter);
+          $("#results").show();
+          $("#restart").show();
+                $(".question").hide();
+                $(".answers").hide();
+                $("#submit").hide();
+      }
+      function finish(){
+          number = 1;
+          clearInterval(counter);
+          timer();
+      }
+      function restart(){
+          number = 60;
+          start();
+      }
+      function hideMe(e) {
+          $(e).hide();
+      }
+      function showMe(e) {
+          $(e).show();
+      }
 
-$('#startOverBtn').on('click', function(){
-    $(this).hide();
-    newGame();
-});
-
-function newGame() {
-    $('#finalMessage').empty();
-    $('#correctAnswers').empty();
-    $('#incorrectAnswers').empty();
-    $('#unanswered'),empty();
-    currentQuestion = 0;
-    correctAnswer = 0;
-    incorrectAnswer = 0;
-    unanswered = 0;
-    newQuestion();
-}
-
-function newQuestion() {
-    $('#message').empty();
-    $('#correctedAnswer').empty();
-    $('#image').empty();
-    answered = true;
-
-    // sets up new questions and answerList
-    $('#currentQuestion').html('Question #' + (currentQuestion+1) + '/' + triviaQuestions.length);
-    $('.question').html('<h2>' + triviaQuestions[currentQuestion].question + '</h2>');
-    for(var i = 0; i < 4; i++) {
-        var choices = $('<div>');
-        choices.text(triviaQuestions[currentQuestion].answerList[i]);
-        choices.attr({'data-index': i });
-        choices.addClass('thisChoice');
-        $('.answerList').append(choices);
-    }
-
-    countdown();
-    //pause time and go to answerPage
-    $('.thisChoice').on('click',function() {
-        userSelect = $(this).data('index');
-        clearInterval(time);
-        answerPage();
+      start();
     });
-}
+});
 
-function countdown() {
-    seconds = 15;
-    $('#timeLeft').html('<h3>Time Remaining: ' + seconds + '</h3>');
-    answered = true;
-    //sets timer to go down
-    time = setInterval(showCountdown, 1000);
-}
-
-function showCountdown() {
-    seconds--;
-    $('#timeLeft').html('<h3>Time Remaining: ' + seconds + '</h3>');
-    if(seconds < 1) {
-        clearInterval(time);
-        answered = false;
-        answerPage();
+$(document).ready(function(){
+    $("#results").click(function(){
+        if (!$("input[@name=q1]:checked").val() ||
+        !$("input[@name=q2]:checked").val() ||
+        !$("input[@name=q3]:checked").val() ||
+        !$("input[@name=q4]:checked").val() ||
+        !$("input[@name=q5]:checked").val() ||
+        !$("input[@name=q6]:checked").val()
+    ) {
+        alert("Clock is still running");
     }
-}
+    else {
+        var cat1name = "1";
+        var cat2name = "2";
+        var cat3name = "3";
+        var cat4name = "4";
+        var cat5name = "5";
+        var cat6name = "6";
+        var cat7name = "none";
 
-function answerPage() {
-    $('#currentQuestion').empty();
-    $('.thisChoice').empty();
-    $('.question').empty();
+        var cat1 = ($("input[@name=q1]:checked").val() !="a");
+        var cat2 = ($("input[@name=q2]:checked").val() !="b");
+        var cat3 = ($("input[@name=q3]:checked").val() !="c");
+        var cat4 = ($("input[@name=q4]:checked").val() !="d");
+        var cat5 = ($("input[@name=q5]:checked").val() !="a");
+        var cat6 = ($("input[@name=q6]:checked").val() !="d");
+        var cat7 = (!cat1 && !cat2 && !cat3 && !cat4 && !cat5 && !cat6); var categories = [];
 
-    var rightAnswerText = triviaQuestions[currentQuestion].answerList[triviaQuestions[currentQuestion].answer];
-    var rightAnswerIndex = triviaQuestions[currentQuestion].answer;
-    $('#image').html('<img src = "assets/images/'+ imageArray[currentQuestion] + 'image" width = "400px>');
+        if (cat1) { categories.push(cat1name) };
+        if (cat2) { categories.push(cat2name) };
+        if (cat3) { categories.push(cat3name) };
+        if (cat4) { categories.push(cat4name) };
+        if (cat5) { categories.push(cat5name) };
+        if (cat6) { categories.push(cat6name) };
+        if (cat7) { categories.push(cat7name) };
 
-    //check to see if correct
-    if((userSelect == rightAnswerIndex) && (answered == true)) {
-        correctAnswer++;
-        $('#message').html(messages.correct);
-    } else if((userSelect != rightAnswerIndex) && (answered == true)) {
-        incorrectAnswer++;
-        $('#message').html(messages.incorrect);
-        $('#correctedAnswer').html('The correct answer was: ' + rightAnswerIndex);
-    } else {
-        unanswered++;
-        $('#message').html(messages.endTime);
-        $('#correctedAnswer').html('The correct answer was: ' + rightAnswerIndex);
-        answered = true;
+        var catStr = "You answered the following questions incorrectly: + catagories.join(', ') + ";
+        $("#catagorylist").text(catStr);
+        $("#catagorylist").show("slow");
+
+        if (cat1) { $("catagory1").show("slow"); };
+        if (cat2) { $("catagory2").show("slow"); };
+        if (cat3) { $("catagory3").show("slow"); };
+        if (cat4) { $("catagory4").show("slow"); };
+        if (cat5) { $("catagory5").show("slow"); };
+        if (cat6) { $("catagory6").show("slow"); };
+        if (cat7) { $("catagory7").show("slow"); };
+        { $("#closing").show("slow"); };
+
     }
-
-    if(currentQuestion == (triviaQuestions.length-1)) {
-        setTimeout(scoreboard, 5000)
-    } else {
-        currentQuestion++;
-        setTimeout(newQuestion, 5000);
-    }
-}
-
-function scoreboard() {
-    $('#timeLeft').empty();
-    $('#message').empty();
-    $('#correctedAnswer').empty();
-    $('#image').empty();
-
-    $('#finalMessage').html(messages.finished);
-    $('#correctedAnswers').html("Correct Answers: " + correctAnswer);
-    $('#incorrectedAnswers').html("Incorrect Answers: " + incorrectAnswer);
-    $('#unanswered').html("Unanswered: " + unanswered);
-    $('#startOverBtn').addClass('reset');
-    $('#startOverBtn').show();
-    $('#startOverBtn').html('Start Over?');
-}
+    });
+});
